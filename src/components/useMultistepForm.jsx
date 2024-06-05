@@ -2,12 +2,14 @@ import { useState } from "react"
 
 export function useMultistepForm(steps) {
   const [currentstepindex, setcurrentstepindex] = useState(0)
+  const [completed, setCompleted] = useState({});
 
   function next() {
     setcurrentstepindex(i => {
       if (i >= steps.length - 1) return i
       return i + 1
     })
+    handleComplete()
   }
 
   function back() {
@@ -24,6 +26,30 @@ export function useMultistepForm(steps) {
       setcurrentstepindex(index)
   }
 
+  const handleStep = (currentstepindex) => () => {
+    setcurrentstepindex(currentstepindex);
+  };
+
+  const handleComplete = () => {
+    const newCompleted = completed;
+    newCompleted[currentstepindex] = true;
+    setCompleted(newCompleted);
+    
+  };
+  const totalSteps = () => {
+    return steps.length;
+  };
+  const completedSteps = () => {
+    return Object.keys(completed).length;
+  };
+  const allStepsCompleted = () => {
+    return completedSteps() === totalSteps();
+  };
+  const handleReset = () => {
+    setActiveStep(0);
+    setCompleted({});
+  };
+
   return {
     currentstepindex,
     step: steps[currentstepindex],
@@ -33,5 +59,10 @@ export function useMultistepForm(steps) {
     goTo,
     next,
     back,
+    handleComplete,
+    handleStep,
+    completed,
+    allStepsCompleted,
+    handleReset,
   }
 }
