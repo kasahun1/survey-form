@@ -6,6 +6,11 @@ import { AccountForm } from './components/AccountForm'
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepButton from '@mui/material/StepButton';
+import SuccessMessage from './components/SuccessMessage'
+import { Button } from '@mui/material'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import Payment from './components/Payment';
+
 
 
 const INITIAL_DATA = {
@@ -20,14 +25,16 @@ const INITIAL_DATA = {
   password: "",
 }
 
-const labels = [ 'User Info','Address Info', 'Account Info',];
+const labels = [ 'User Info','Address Info', 'Account Info'];
 
 function App() {
   const [data, setData] = useState(INITIAL_DATA)
   const { steps, completed, handleComplete, handleStep, currentstepindex, step, isFirstStep, isLastStep, back, next } = useMultistepForm([
-    <UserForm {...data} updateFields={updateFields} />,
-    <AddressForm {...data} updateFields={updateFields} />,
-    <AccountForm {...data} updateFields={updateFields} />,
+    // <UserForm {...data} updateFields={updateFields} />,
+    // <AddressForm {...data} updateFields={updateFields} />,
+    // <AccountForm {...data} updateFields={updateFields} />,
+    <Payment />,
+    <SuccessMessage firstName={data.firstName}/>
   ])
 
 
@@ -62,7 +69,15 @@ function onSubmit(e) {
          </Stepper>
          </div>
          {step}
-        <div className="flex mt-10 gap-5 justify-end max-w-md mx-auto">
+         {
+          currentstepindex >= steps.length-1 ? (
+            <div className='flex justify-center mt-5'>
+              <Button variant="contained" startIcon={<ArrowBackIcon />} color="success" size="small">
+              Go back to home
+            </Button>
+            </div>
+          ) : (
+            <div className="flex mt-10 gap-5 justify-end max-w-md mx-auto">
           {!isFirstStep && (
             <button type="button" onClick={back}>
               Back
@@ -70,6 +85,9 @@ function onSubmit(e) {
           )}
           <button type="submit" onClick={handleComplete}>{isLastStep ? "Finish" : "Next"}</button>
         </div>
+          )
+         }
+        
       </form>
     </div>
   )
