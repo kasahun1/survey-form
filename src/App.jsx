@@ -9,7 +9,8 @@ import StepButton from '@mui/material/StepButton';
 import SuccessMessage from './components/SuccessMessage'
 import { Button } from '@mui/material'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import Payment from './components/Payment';
+import Purchase from './components/Purchase'
+
 
 
 
@@ -33,7 +34,7 @@ function App() {
     // <UserForm {...data} updateFields={updateFields} />,
     // <AddressForm {...data} updateFields={updateFields} />,
     // <AccountForm {...data} updateFields={updateFields} />,
-    <Payment />,
+    <Purchase/>,
     <SuccessMessage firstName={data.firstName}/>
   ])
 
@@ -73,7 +74,7 @@ function onSubmit(e) {
           currentstepindex >= steps.length-1 ? (
             <div className='flex justify-center mt-5'>
               <Button variant="contained" startIcon={<ArrowBackIcon />} color="success" size="small">
-              Go back to home
+               home
             </Button>
             </div>
           ) : (
