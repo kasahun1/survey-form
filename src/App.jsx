@@ -30,11 +30,11 @@ const labels = [ 'User Info','Address Info', 'Account Info'];
 
 function App() {
   const [data, setData] = useState(INITIAL_DATA)
-  const { steps, completed, handleComplete, handleStep, currentstepindex, step, isFirstStep, isLastStep, back, next } = useMultistepForm([
-    // <UserForm {...data} updateFields={updateFields} />,
-    // <AddressForm {...data} updateFields={updateFields} />,
-    // <AccountForm {...data} updateFields={updateFields} />,
-    <Purchase/>,
+  const { steps, completed, setcurrentstepindex, handleComplete, handleStep, currentstepindex, step, isFirstStep, isLastStep, back, next } = useMultistepForm([
+    <UserForm {...data} updateFields={updateFields} />,
+    <AddressForm {...data} updateFields={updateFields} />,
+    <AccountForm {...data} updateFields={updateFields} />,
+    // <Purchase/>,
     <SuccessMessage firstName={data.firstName}/>
   ])
 
